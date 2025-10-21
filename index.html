@@ -6,11 +6,11 @@
 <title>SKCMgo — SmartDash v4.1.8</title>
 <style>
 :root{
---bg:#f7f8fb; --card:#fff; --text:#0b1324; --muted:#748093; --line:#e8ecf4; --accent:#2d7cf5;
---good:#16a34a; --warn:#f59e0b; --bad:#ef4444;
+--bg:#f7f8fb; --card:#fff; --text:#0b1324; --muted:#748093; --line:#e8ecf4;
+--accent:#2d7cf5; --good:#16a34a; --warn:#f59e0b; --bad:#ef4444;
 }
 [data-theme="dark"]{
---bg:#0d1117; --card:#131a22; --text:#e6edf3; --muted:#9aa7b0; --line:#1f2732; --accent:#2d7cf5;
+--bg:#0d1117; --card:#131a22; --text:#e6edf3; --muted:#9aa7b0; --line:#1f2732;
 --good:#22c55e; --warn:#fbbf24; --bad:#f97316;
 }
 [data-accent="grey"]{--accent:#6b7280}
@@ -22,44 +22,53 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
 header{display:flex;align-items:center;gap:.75rem;padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5}
-h1{font-size:18px;margin:0} .sub{color:var(--muted);font-size:12px}
+h1{font-size:18px;margin:0}
+.sub{color:var(--muted);font-size:12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
 .btn{padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);cursor:pointer}
 .btn.primary{background:var(--accent);border-color:transparent;color:#fff}
-.btn.ghost{background:transparent}
-select,input[type="search"],input[type="text"],input[type="number"]{padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text)}
-.toolbar{display:flex;flex-wrap:wrap;gap:8px 12px;padding:10px 16px;border-bottom:1px solid var(--line)}
-.chip{padding:8px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 12px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.toolbar .chip{padding:8px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.toolbar input, .toolbar select{padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text)}
+
 .tabs{display:flex;flex-wrap:wrap;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line)}
 .tab-btn{background:var(--card);border:1px solid var(--line);padding:10px 14px;border-radius:12px;cursor:pointer}
 .tab-btn.active{background:var(--accent);color:#fff;border-color:transparent}
-.view{display:none;padding:16px} .view.active{display:block}
+
+.view{display:none;padding:16px}
+.view.active{display:block}
+
 .grid{display:grid;gap:12px}
-@media(min-width:740px){ .grid.cols-2{grid-template-columns:1fr 1fr} .grid.cols-3{grid-template-columns:repeat(3,1fr)} }
-@media(min-width:1020px){ .grid.cols-4{grid-template-columns:repeat(4,1fr)} }
+@media(min-width:740px){ .cols-2{grid-template-columns:1fr 1fr} .cols-3{grid-template-columns:repeat(3,1fr)} }
+@media(min-width:1020px){ .cols-4{grid-template-columns:repeat(4,1fr)} }
+
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
 .kpi{display:flex;align-items:center;justify-content:space-between}
-.kpi .v{font-size:28px;font-weight:700} .kpi .lbl{color:var(--muted);font-size:13px}
+.kpi .v{font-size:28px;font-weight:700}
+.kpi .lbl{color:var(--muted);font-size:13px}
 .pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;border:1px solid var(--line);background:var(--bg);color:var(--muted)}
+
+.tbl-wrap{border:1px solid var(--line);border-radius:10px;overflow:auto;max-height:58vh;background:var(--card)}
 table{width:100%;border-collapse:collapse}
 th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
 th{font-size:12px;text-transform:uppercase;color:var(--muted);position:sticky;top:0;background:var(--card);z-index:1}
 tr:hover td{background:color-mix(in oklab, var(--accent) 8%, transparent)}
-.tbl-wrap{max-height:56vh;overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--card)}
-.chart{width:100%;height:240px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chart{width:100%;height:240px}
+
 footer{padding:14px 16px;color:var(--muted);border-top:1px solid var(--line);text-align:center;margin-top:20px}
 
-/* Cetak slip Penjaga/Slip Akademik */
+/* Penjaga – cetak cantik */
 @media print{
 body{background:#fff}
-.no-print, header, .toolbar, .tabs{display:none!important}
-.print-wrap{display:block!important}
+.no-print, header, .toolbar, .tabs, footer{display:none!important}
+.print-wrap{display:block}
+.print-wrap h2{margin:0 0 8px 0}
+.print-wrap table{width:100%;border-collapse:collapse;margin:8px 0 16px 0}
+.print-wrap th, .print-wrap td{border:1px solid #ccc;padding:6px 8px}
+.print-wrap th{background:#f3f4f6}
 }
-.print-wrap{display:none}
-.print-head{display:flex;justify-content:space-between;align-items:center;margin:0 0 8px 0}
-.print-head h2{margin:0}
-.kv tr td:first-child{width:180px;color:var(--muted)}
-.warn{color:var(--warn)} .good{color:var(--good)} .bad{color:var(--bad)}
 </style>
 </head>
 <body data-theme="light" data-accent="sea">
@@ -68,9 +77,9 @@ body{background:#fff}
 <h1>SKCMgo — SmartDash v4.1.8</h1>
 <div class="sub">Dashboard • Pentadbiran+ • Akademik • HEM • Kokurikulum • Arkib • Penjaga</div>
 </div>
-<div style="margin-left:auto" class="row">
+<div class="row" style="margin-left:auto">
 <button class="btn" id="btnTheme">🌗 Tema</button>
-<select id="accentSel" class="chip">
+<select id="selAccent" class="chip">
 <option value="sea">Sea Blue</option><option value="grey">Grey</option>
 <option value="orange">Orange</option><option value="lime">Lime</option>
 <option value="bee">Bumblebee</option>
@@ -78,21 +87,25 @@ body{background:#fff}
 </div>
 </header>
 
-<!-- DATA TOOLBAR -->
+<!-- Toolbar data -->
 <div class="toolbar">
-<label class="chip">Import CSV: <input type="file" id="fileInput" accept=".csv" multiple></label>
-<input type="text" id="urlInput" placeholder="Import dari URL CSV (Google Sheets publish / GitHub raw)" size="42">
+<div class="row">
+<label class="chip">Import CSV:
+<input type="file" id="fileInput" accept=".csv" multiple>
+</label>
+<input type="text" id="urlInput" placeholder="Import URL (Google Sheets publish-to-CSV / GitHub raw)" size="40">
 <button class="btn" id="btnURL">Muat URL</button>
 <button class="btn" id="btnSave">Simpan Cache</button>
 <button class="btn" id="btnClear">Buang Cache</button>
+</div>
 <div class="row" style="margin-left:auto">
 <select id="tahunSel"></select>
 <select id="kelasSel"></select>
 </div>
-<div class="sub" style="width:100%">Penapis Tahun/Kelas ini mempengaruhi semua tab. Data kekal di peranti (localStorage).</div>
+<div class="sub" style="width:100%">Penapis Tahun/Kelas mempengaruhi semua tab. Data kekal di peranti (localStorage).</div>
 </div>
 
-<!-- TABS -->
+<!-- Tabs -->
 <div class="tabs" id="tabs">
 <button class="tab-btn active" data-tab="dash">Dashboard</button>
 <button class="tab-btn" data-tab="admin">Pentadbiran+</button>
@@ -106,83 +119,76 @@ body{background:#fff}
 <!-- DASHBOARD -->
 <section class="view active" id="view-dash">
 <div class="grid cols-4">
-<div class="card kpi"><div><div class="lbl">Jumlah Murid</div><div class="v" id="kpiTotal">0</div></div><span class="pill">Semua</span></div>
-<div class="card kpi"><div><div class="lbl">Lelaki</div><div class="v" id="kpiL">0</div></div><span class="pill">L</span></div>
-<div class="card kpi"><div><div class="lbl">Perempuan</div><div class="v" id="kpiP">0</div></div><span class="pill">P</span></div>
-<div class="card kpi"><div><div class="lbl">% Purata Kehadiran</div><div class="v" id="kpiHadir">0%</div></div><span class="pill">kehadir</span></div>
+<div class="card kpi"><div><div class="lbl">Jumlah Murid</div><div class="v" id="kpiTotal">0</div></div><span class="pill">semua</span></div>
+<div class="card kpi"><div><div class="lbl">Murid Lelaki</div><div class="v" id="kpiL">0</div></div><span class="pill">L</span></div>
+<div class="card kpi"><div><div class="lbl">Murid Perempuan</div><div class="v" id="kpiP">0</div></div><span class="pill">P</span></div>
+<div class="card kpi"><div><div class="lbl">% Purata Kehadiran</div><div class="v" id="kpiHadir">0%</div></div><span class="pill">kehadiran</span></div>
 </div>
 <div class="grid cols-2" style="margin-top:12px">
 <div class="card">
 <div class="row" style="justify-content:space-between;align-items:center">
 <b>Ringkasan Mengikut Kelas</b>
 <div class="row">
-<button class="btn ghost" onclick="printTable('tblKelas','Ringkasan Mengikut Kelas')">Cetak</button>
-<button class="btn ghost" onclick="exportTable('tblKelas')">Eksport CSV</button>
+<button class="btn" onclick="printTable('tblKelas','Ringkasan Mengikut Kelas')">Cetak</button>
+<button class="btn" onclick="exportTable('tblKelas')">Eksport CSV</button>
 </div>
 </div>
-<div class="tbl-wrap">
-<table id="tblKelas"><thead><tr><th>#</th><th>Kelas</th><th>L</th><th>P</th><th>Jumlah</th><th>Guru Kelas</th></tr></thead><tbody></tbody></table>
+<div class="tbl-wrap"><table id="tblKelas"><thead><tr><th>#</th><th>Kelas</th><th>L</th><th>P</th><th>Jumlah</th><th>Guru Kelas</th></tr></thead><tbody></tbody></table></div>
 </div>
-</div>
-<div class="card">
-<b>Graf Ringkas Mengikut Kelas</b>
-<canvas id="clsChart" class="chart"></canvas>
-</div>
+<div class="card"><b>Graf Ringkas Mengikut Kelas</b><canvas id="clsChart" class="chart"></canvas></div>
 </div>
 </section>
 
 <!-- PENTADBIRAN+ -->
 <section class="view" id="view-admin">
 <div class="grid cols-4">
-<div class="card kpi"><div><div class="lbl">Bil. Guru</div><div class="v" id="kpiGuru">0</div></div><span class="pill">guru</span></div>
-<div class="card kpi"><div><div class="lbl">AKP</div><div class="v" id="kpiAKP">0</div></div><span class="pill">staf</span></div>
-<div class="card kpi"><div><div class="lbl">Kebersihan</div><div class="v" id="kpiKeb">0</div></div><span class="pill">pekerja</span></div>
-<div class="card kpi"><div><div class="lbl">Pengawal</div><div class="v" id="kpiGuard">0</div></div><span class="pill">security</span></div>
+<div class="card kpi"><div><div class="lbl">Bil. Guru</div><div class="v" id="kpiGuru">0</div></div><span class="pill">staf</span></div>
+<div class="card kpi"><div><div class="lbl">AKP / Staf Sokongan</div><div class="v" id="kpiAKP">0</div></div><span class="pill">staf</span></div>
+<div class="card kpi"><div><div class="lbl">Pekerja Kebersihan</div><div class="v" id="kpiKeb">0</div></div><span class="pill">pekerja</span></div>
+<div class="card kpi"><div><div class="lbl">Pengawal Keselamatan</div><div class="v" id="kpiGuard">0</div></div><span class="pill">pekerja</span></div>
 </div>
 
 <div class="grid cols-2" style="margin-top:12px">
 <div class="card">
 <div class="row" style="justify-content:space-between;align-items:center">
 <b>Data Staf (Guru & AKP)</b>
-<button class="btn ghost" onclick="exportTable('tblStaf')">Eksport CSV</button>
+<button class="btn" onclick="exportTable('tblStaf')">Eksport CSV</button>
 </div>
 <div class="tbl-wrap"><table id="tblStaf"><thead><tr><th>Nama</th><th>Jawatan</th><th>Opsyen/Subjek</th><th>Telefon</th><th>Emel</th></tr></thead><tbody></tbody></table></div>
 </div>
-
 <div class="card">
 <div class="row" style="justify-content:space-between;align-items:center">
-<b>Keberadaan Harian</b>
-<div class="sub">Isi daripada CSV: tarikh, nama_guru, status, masa_mula, masa_tamat, catatan</div>
+<b>Log Aktiviti / Pentadbiran</b>
 </div>
-<div class="tbl-wrap"><table id="tblHadirGuru"><thead><tr><th>Tarikh</th><th>Nama</th><th>Status</th><th>Masa</th><th>Catatan</th></tr></thead><tbody></tbody></table></div>
+<div class="tbl-wrap"><table id="tblLog"><thead><tr><th>Tarikh</th><th>Program</th><th>Unit</th><th>Status</th></tr></thead><tbody></tbody></table></div>
 </div>
 </div>
 
 <div class="card" style="margin-top:12px">
 <div class="row" style="justify-content:space-between;align-items:center">
-<b>Jadual Waktu (Penapis Guru/Kelas/Masa/Subjek)</b>
+<b>Jadual Waktu — dengan Penapis</b>
 <div class="row">
-<input id="jadCariGuru" type="search" placeholder="Cari guru…">
-<input id="jadCariKelas" type="search" placeholder="Cari kelas…">
-<input id="jadCariMasa" type="search" placeholder="Cari masa…">
-<input id="jadCariSubjek" type="search" placeholder="Cari subjek…">
-<button class="btn" id="jadClear">Reset</button>
+<input id="jadCari" class="chip" placeholder="Cari guru/subjek/hari/kelas…">
+<select id="jadHari" class="chip">
+<option value="">— Semua Hari —</option>
+<option>Isnin</option><option>Selasa</option><option>Rabu</option><option>Khamis</option><option>Jumaat</option>
+</select>
 </div>
 </div>
-<div class="tbl-wrap"><table id="tblJadual"><thead><tr><th>Guru</th><th>Kelas</th><th>Masa</th><th>Subjek</th></tr></thead><tbody></tbody></table></div>
+<div class="tbl-wrap"><table id="tblJadual"><thead><tr><th>Hari</th><th>Masa</th><th>Guru</th><th>Kelas</th><th>Subjek</th></tr></thead><tbody></tbody></table></div>
 </div>
 
 <div class="grid cols-3" style="margin-top:12px">
 <div class="card">
-<b>Log Aktiviti / Program</b>
-<div class="tbl-wrap"><table id="tblLog"><thead><tr><th>Tarikh</th><th>Program</th><th>Unit</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+<b>Keberadaan Guru (Harian)</b>
+<div class="tbl-wrap"><table id="tblKehadiranGuru"><thead><tr><th>Tarikh</th><th>Guru</th><th>Status</th><th>Catatan</th></tr></thead><tbody></tbody></table></div>
 </div>
 <div class="card">
 <b>Pekerja Kebersihan / Pengawal</b>
 <div class="tbl-wrap"><table id="tblPekerja"><thead><tr><th>Nama</th><th>Peranan</th><th>Syif</th><th>Catatan</th></tr></thead><tbody></tbody></table></div>
 </div>
 <div class="card">
-<b>Penghubung (PPD / PDRM)</b>
+<b>Penghubung PPD / PDRM</b>
 <div class="tbl-wrap"><table id="tblHubung"><thead><tr><th>Agensi</th><th>Nama</th><th>Telefon</th><th>Catatan</th></tr></thead><tbody></tbody></table></div>
 </div>
 </div>
@@ -196,33 +202,29 @@ body{background:#fff}
 <div class="card kpi"><div><div class="lbl">Murid Cemerlang</div><div class="v" id="kpiCemerlang">0</div></div><span class="pill">≥ A</span></div>
 </div>
 
-<div class="card" style="margin:12px 0">
-<div class="row" style="align-items:center;gap:10px">
-<select id="subSel" class="chip"><option value="">— Semua Subjek —</option></select>
-<input id="akdCari" type="search" placeholder="Cari nama murid…">
-<button id="akdBtnCari" type="button" class="btn">Cari</button>
-<button id="akdBtnTop" type="button" class="btn">Top 10</button>
-<button id="akdCetak" type="button" class="btn">Cetak Slip</button>
-</div>
-</div>
-
-<div class="grid cols-2">
-<div class="card">
+<div class="card" style="margin-top:12px">
 <div class="row" style="justify-content:space-between;align-items:center">
-<b>Taburan Gred / Markah</b>
-<button class="btn ghost" onclick="exportTable('tblAkad')">Eksport CSV</button>
+<div class="row">
+<b>Penapis</b>
+<select id="subSel" class="chip"><option value="">— Semua Subjek —</option></select>
 </div>
+<div class="row">
+<input id="akdCari" class="chip" type="search" placeholder="Cari nama murid…">
+<button id="akdBtnCari" class="btn">Cari</button>
+<button id="akdBtnTop" class="btn">Top 10</button>
+<button id="akdCetak" class="btn">Cetak Slip</button>
+</div>
+</div>
+<div class="grid cols-2" style="margin-top:10px">
+<div class="card">
 <div class="tbl-wrap"><table id="tblAkad"><thead><tr><th>Nama</th><th>Kelas</th><th>Subjek</th><th>Markah</th><th>Gred</th></tr></thead><tbody></tbody></table></div>
 </div>
-<div class="card">
-<b>Graf Peratus Lulus per Subjek</b>
-<canvas id="akadChart" class="chart"></canvas>
+<div class="card"><b>Graf Peratus Lulus per Subjek</b><canvas id="akadChart" class="chart"></canvas></div>
 </div>
-</div>
-
 <div class="card">
-<b>Slip Individu</b>
-<div id="akdSlip" class="print-target"></div>
+<b>Slip Keputusan</b>
+<div id="akdSlip" style="white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace"></div>
+</div>
 </div>
 </section>
 
@@ -245,8 +247,8 @@ body{background:#fff}
 </div>
 </div>
 <div class="card" style="margin-top:12px">
-<b>Senarai Murid (SSDM > 0)</b>
-<div class="tbl-wrap"><table id="tblSSDM"><thead><tr><th>Nama</th><th>Kelas</th><th>Bil. Kes</th><th>Catatan</th></tr></thead><tbody></tbody></table></div>
+<b>Senarai Murid SSDM</b>
+<div class="tbl-wrap"><table id="tblSSDM"><thead><tr><th>Nama</th><th>Kelas</th><th>Bil. Kes</th></tr></thead><tbody></tbody></table></div>
 </div>
 </section>
 
@@ -281,419 +283,428 @@ body{background:#fff}
 <!-- PENJAGA -->
 <section class="view" id="view-penjaga">
 <div class="card">
-<div class="row" style="gap:10px;align-items:center;justify-content:space-between">
+<div class="row" style="justify-content:space-between;align-items:center">
 <h3>Semakan Penjaga</h3>
 <div class="row">
-<input id="penjagaCari" type="search" placeholder="Cari nama murid…">
-<button id="penjagaCetak" type="button" class="btn">Cetak</button>
+<input id="penjagaCari" class="chip" type="search" placeholder="Cari nama murid…">
+<button id="penjagaCetak" class="btn">Cetak</button>
 </div>
 </div>
-<div id="penjagaPrint" class="print-target">
+<div id="penjagaPrint">
 <h4>Ringkasan Murid</h4>
-<div class="tbl-wrap"><table class="kv"><tbody id="penjaga-basic"></tbody></table></div>
+<div class="tbl-wrap"><table id="tblPjInfo"><tbody></tbody></table></div>
 <h4>Prestasi Akademik</h4>
-<div class="tbl-wrap"><table class="kv"><tbody id="penjaga-akad"></tbody></table></div>
+<div class="tbl-wrap"><table id="tblPjAkad"><thead><tr><th>Subjek</th><th>Markah</th><th>Gred</th></tr></thead><tbody></tbody></table></div>
 <h4>Kokurikulum</h4>
-<div class="tbl-wrap"><table class="kv"><tbody id="penjaga-koko"></tbody></table></div>
+<div class="tbl-wrap"><table id="tblPjKoko"><tbody></tbody></table></div>
 <h4>SSDM</h4>
-<div class="tbl-wrap"><table class="kv"><tbody id="penjaga-ssdm"></tbody></table></div>
+<div class="tbl-wrap"><table id="tblPjSSDM"><tbody></tbody></table></div>
 <h4>Yuran / Pembelian</h4>
-<div class="tbl-wrap"><table class="kv"><tbody id="penjaga-yuran"></tbody></table></div>
+<div class="tbl-wrap"><table id="tblPjYuran"><tbody></tbody></table></div>
 </div>
 </div>
 </section>
 
-<footer>© SKCMgo — SmartDash v4.1.8 • Multi-CSV import • Cache tempatan • Tema/Aksen • Cetak kemas.</footer>
+<footer>© SKCMgo v4.1.8 • Import CSV/URL & Cache tempatan • Tema & warna boleh tukar.</footer>
 
 <script>
-/* ====== TEMA & AKSEN ====== */
-const CKEY='skcmgo_cfg_v418', SKEY='skcmgo_db_v418';
+/* ====== Tema & Aksen ====== */
+const CKEY='skcmgo_cfg_v418', SKEY='skcmgo_data_v418';
 const $=id=>document.getElementById(id);
-$('btnTheme').onclick=()=>{const t=document.body.getAttribute('data-theme')||'light'; document.body.setAttribute('data-theme',t==='light'?'dark':'light'); persistCfg();};
-$('accentSel').onchange=e=>{document.body.setAttribute('data-accent',e.target.value); persistCfg();};
-(function restoreCfg(){ try{const c=JSON.parse(localStorage.getItem(CKEY)||'{}'); if(c.theme) document.body.setAttribute('data-theme',c.theme); if(c.accent){document.body.setAttribute('data-accent',c.accent); $('accentSel').value=c.accent;} }catch(e){} })();
-function persistCfg(){ localStorage.setItem(CKEY, JSON.stringify({theme:document.body.getAttribute('data-theme'),accent:document.body.getAttribute('data-accent')})); }
+$('btnTheme').onclick=()=>{const t=document.body.getAttribute('data-theme')||'light';document.body.setAttribute('data-theme',t==='light'?'dark':'light');persistCfg();}
+$('selAccent').onchange=e=>{document.body.setAttribute('data-accent',e.target.value);persistCfg();}
+;(function(){try{const c=JSON.parse(localStorage.getItem(CKEY)||'{}'); if(c.theme) document.body.setAttribute('data-theme',c.theme); if(c.accent){document.body.setAttribute('data-accent',c.accent); $('selAccent').value=c.accent;} }catch(e){}})();
+function persistCfg(){localStorage.setItem(CKEY,JSON.stringify({theme:document.body.getAttribute('data-theme'),accent:document.body.getAttribute('data-accent')}))}
 
-/* ====== CSV PARSER ROBUST ====== */
+/* ====== Util ====== */
+function toast(msg){const el=document.createElement('div');el.textContent=msg;el.style.cssText='position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--card);color:var(--text);border:1px solid var(--line);padding:10px 14px;border-radius:10px;box-shadow:0 10px 24px rgba(0,0,0,.15);z-index:9999';document.body.appendChild(el);setTimeout(()=>el.remove(),2200)}
+function fillTable(id, rows){const tb=$(id).querySelector('tbody');tb.innerHTML='';(rows||[]).forEach(r=>{const tr=document.createElement('tr');r.forEach(c=>{const td=document.createElement('td');td.textContent=(c==null?'':c);tr.appendChild(td)});tb.appendChild(tr)})}
+function exportTable(id){const tbl=$(id);const rows=[...tbl.querySelectorAll('tr')].map(tr=>[...tr.children].map(td=>('"'+(td.textContent||'').replace(/"/g,'""')+'"')).join(','));const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv;charset=utf-8;'}));a.download=id+'.csv';a.click()}
+function printTable(id,title){const w=window.open('','_blank');const css='body{font:14px/1.5 system-ui;margin:20px}h2{margin:0 0 8px 0}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:6px 8px}th{background:#f3f4f6}';w.document.write(`<html><head><title>${title||'Cetak'}</title><style>${css}</style></head><body><h2>${title||'Cetak'}</h2>${document.getElementById(id).outerHTML}</body></html>`);w.document.close();w.focus();w.print()}
+function grade(m){const n=parseFloat((m||'').toString());if(isNaN(n))return'';if(n>=85)return'A';if(n>=70)return'B';if(n>=55)return'C';if(n>=40)return'D';return'E'}
+function pct(v){const s=(v??'').toString().replace('%','').replace(',','.');const n=parseFloat(s);return Number.isFinite(n)?n:0}
+function uniq(a){return [...new Set(a.filter(Boolean))].sort()}
+function groupBy(arr,fn){const m={};arr.forEach(x=>{const k=fn(x);(m[k]=m[k]||[]).push(x)});return m}
+function mostCommon(a){const c={};a.filter(Boolean).forEach(x=>c[x]=(c[x]||0)+1);return Object.entries(c).sort((A,B)=>B[1]-A[1])[0]?.[0]||''}
+
+/* ====== Parser CSV Fleksibel + Canon ====== */
 function parseCSV(txt){
 if(!txt) return {header:[],data:[]};
 txt=String(txt).replace(/^\uFEFF/,'').replace(/\\r\\n/g,'\r\n');
 const first=(txt.split(/\r?\n/)[0]||'').trim();
-const cnt={comma:(first.match(/,/g)||[]).length, semi:(first.match(/;/g)||[]).length, tab:(first.match(/\t/g)||[]).length};
+const cnt={comma:(first.match(/,/g)||[]).length,semi:(first.match(/;/g)||[]).length,tab:(first.match(/\t/g)||[]).length};
 let d=','; if(cnt.semi>cnt.comma&&cnt.semi>=cnt.tab) d=';'; else if(cnt.tab>cnt.comma&&cnt.tab>=cnt.semi) d='\t';
 const rows=[]; let cur='',row=[],q=false;
-for(let i=0;i<txt.length;i++){ const c=txt[i],n=txt[i+1];
-if(q){ if(c=='"'&&n=='"'){cur+='"';i++;} else if(c=='"'){q=false;} else cur+=c; }
-else { if(c=='"'){q=true;} else if(c===d){row.push(cur);cur='';} else if(c=='\n'){row.push(cur);rows.push(row);row=[];cur='';} else if(c=='\r'){} else cur+=c; }
+for(let i=0;i<txt.length;i++){const c=txt[i],n=txt[i+1];
+if(q){if(c=='"'&&n=='"'){cur+='"';i++;}else if(c=='"'){q=false;}else cur+=c;}
+else {if(c=='"'){q=true;} else if(c===d){row.push(cur);cur='';} else if(c=='\n'){row.push(cur);rows.push(row);row=[];cur='';} else if(c=='\r'){} else cur+=c;}
 }
-if(cur.length||row.length){row.push(cur);rows.push(row);}
+if(cur.length||row.length){row.push(cur);rows.push(row)}
 const clean=rows.filter(r=>r.some(x=>String(x).trim()!=='')).map(r=>r.map(x=>String(x).trim()));
 if(!clean.length) return {header:[],data:[]};
 const header=clean[0]; const data=clean.slice(1).map(r=>Object.fromEntries(header.map((h,i)=>[h,r[i]??''])));
 return {header,data};
 }
 
-/* ====== KANONIK MEDAN (ALIAS) ====== */
-const ALIAS = {
-// Induk & asas
-NAMA:['NAMA','Nama','Nama Murid','nama','Student Name'],
-KELAS:['KELAS','Kelas','class','Tingkatan','Darjah'],
-TAHUN:['TAHUN','Tahun','Year'],
-JANTINA:['JANTINA','Jantina','Gender','L/P','Sex'],
-KEHADIR:['KEHADIR','% Kehadiran','Kehadiran_%','HADIR_%'],
+const SUBJECT_KEYS = [
+'BM','BI','MAT','SAINS','SEJ','AGAMA','PJK','PEND_MORAL','BAHASA_ARAB',
+'PSV','RBT','MUZIK','SEJARAH','GEOGRAFI','TMK','REKA_BENTUK','ASK','Sains Komputer'
+];
 
-// Kokurikulum & HEM
-RMT:['RMT','Bantuan RMT','Makanan Tambahan'],
-BANTUAN:['BANTUAN','KWAMP','Biasiswa','Zakat'],
+function canonicalize(records, header){
+const ALIAS={
+// Induk murid
+NAMA:['NAMA','Nama','Nama Murid','nama_penuh','Student Name'],
+KELAS:['KELAS','Kelas','class','Darjah','Tingkatan'],
+TAHUN:['TAHUN','Tahun','Year','Tingkatan'],
+JANTINA:['JANTINA','Jantina','Gender','L/P','L_P','Sex'],
+KEHADIR:['KEHADIR','Kehadiran','% Kehadiran','HADIR_%','Kehadiran_%'],
+
+RMT:['RMT','Bantuan RMT','Penerima RMT','Makanan Tambahan'],
+BANTUAN:['BANTUAN','KWAMP','Biasiswa','Zakat','Bantuan Lain'],
 BERUNIFORM:['BERUNIFORM','Badan Beruniform','Uniform'],
 SUKAN:['SUKAN','Sukan/Permainan','Sports'],
 KELAB:['KELAB','Kelab/Persatuan','Persatuan'],
-NO_KELUARGA:['NO_KELUARGA','No. Keluarga','Keluarga_ID'],
+
+NO_KELUARGA:['NO_KELUARGA','ID Keluarga','No. Keluarga','Keluarga_ID'],
 SSDM:['SSDM','Kes Disiplin','SSDM Kes'],
 
-// Akademik (ringkas atau subjek lajur)
+// Markah panjang
 SUBJEK:['SUBJEK','Subject'],
-MARKAH:['MARKAH','Skor','Score','Markah'],
+MARKAH:['MARKAH','Markah','Score','Skor'],
 GRED:['GRED','Grade'],
-BM:['BM','Bahasa Melayu','BM (%)'], BI:['BI','Bahasa Inggeris','BI (%)'],
-MAT:['MAT','Matematik','MAT (%)'], SAINS:['SAINS','Sains','SAINS (%)'],
-SEJ:['SEJ','Sejarah','SEJ (%)'], AGAMA:['AGAMA','Pendidikan Islam','AGAMA (%)'],
-RBT:['RBT','Reka Bentuk & Teknologi'], PJK:['PJK','Pendidikan Jasmani & Kesihatan'],
-PSV:['PSV','Pendidikan Seni Visual'], MUZIK:['MUZIK','Pendidikan Muzik'],
-BC:['BC','Bahasa Cina'], BT:['BT','Bahasa Tamil'],
 
-// Pentadbiran (staf, jadual, log)
+// Markah ringkas
+BM:['BM','Bahasa Melayu','BM (%)'],
+BI:['BI','Bahasa Inggeris','BI (%)'],
+MAT:['MAT','Matematik','MAT (%)'],
+SAINS:['SAINS','Sains','SAINS (%)'],
+SEJ:['SEJ','Sejarah','SEJ (%)'],
+AGAMA:['AGAMA','Pendidikan Islam','AGAMA (%)'],
+PJK:['PJK','Pendidikan Jasmani'],
+PSV:['PSV','Pendidikan Seni Visual'],
+RBT:['RBT','Reka Bentuk & Teknologi'],
+MUZIK:['MUZIK','Pendidikan Muzik'],
+BAHASA_ARAB:['Bahasa Arab','ARAB','BA'],
+GEOGRAFI:['GEOG','Geografi'],
+TMK:['TMK','Teknologi Maklumat'],
+REKA_BENTUK:['REKA_BENTUK'],
+ASK:['ASK'],
+"Sains Komputer":['Sains Komputer','CS'],
+
+// Staf
 ROLE:['ROLE','Peranan'],
-NAMA_GURU:['NAMA_GURU','Nama Guru','Guru'],
+NAMA_GURU:['NAMA_GURU','Nama Guru'],
 JAWATAN:['JAWATAN','Jawatan'],
-OPSYEN:['OPSYEN','Opsyen','Opsyen/Subjek','Opsyen_Subjek'],
-SUBJEK_STAF:['SUBJEK_STAF','Subjek Diajar','Subjek'],
-TELEFON:['TELEFON','Telefon','No Tel'],
-EMEL:['EMEL','Email','Emel'],
+OPSYEN:['OPSYEN','Opsyen','Opsyen/Subjek','Subjek Kepakaran'],
+TELEFON:['TELEFON','Telefon','No Tel','Phone'],
+EMEL:['EMEL','Emel','Email'],
 
-JAD_GURU:['JAD_GURU','Guru Jadual','Nama Guru Jadual'],
-JAD_KELAS:['JAD_KELAS','Kelas Jadual'],
-JAD_MASA:['JAD_MASA','Masa Jadual','Slot Masa','Masa'],
-JAD_SUBJEK:['JAD_SUBJEK','Subjek Jadual'],
+// Jadual Waktu
+JAD_HARI:['JAD_HARI','Hari','DAY'],
+JAD_MASA:['JAD_MASA','Masa','Slot'],
+JAD_GURU:['JAD_GURU','Guru Jadual','Nama Guru'],
+JAD_KELAS:['JAD_KELAS','Kelas Jadual','Kelas'],
+JAD_SUBJEK:['JAD_SUBJEK','Subjek Jadual','Subjek'],
 
-LOG_TARIKH:['LOG_TARIKH','Tarikh Aktiviti','Tarikh_Log'],
-LOG_PROGRAM:['LOG_PROGRAM','Nama Program','Program'],
-LOG_UNIT:['LOG_UNIT','Unit Terlibat','Unit'],
-LOG_STATUS:['LOG_STATUS','Status Program','Status'],
+// Keberadaan Guru
+KEB_TARIKH:['KEB_TARIKH','Tarikh Kehadiran','Tarikh'],
+KEB_GURU:['KEB_GURU','Guru Kehadiran','Guru'],
+KEB_STATUS:['KEB_STATUS','Status Kehadiran','Status'],
+KEB_CATATAN:['KEB_CATATAN','Catatan Kehadiran','Catatan'],
 
-// Keberadaan guru harian
-HAD_TARIKH:['HAD_TARIKH','Tarikh'],
-HAD_NAMA:['HAD_NAMA','Nama Guru'],
-HAD_STATUS:['HAD_STATUS','Status'],
-HAD_MASA_MULA:['HAD_MASA_MULA','Masa Mula'],
-HAD_MASA_TAMAT:['HAD_MASA_TAMAT','Masa Tamat'],
-HAD_CATATAN:['HAD_CATATAN','Catatan'],
+// Log
+LOG_TARIKH:['LOG_TARIKH','Tarikh Aktiviti'],
+LOG_PROGRAM:['LOG_PROGRAM','Program'],
+LOG_UNIT:['LOG_UNIT','Unit'],
+LOG_STATUS:['LOG_STATUS','Status'],
 
-// Yuran / Penjaga
-YURAN_PIBG:['YURAN_PIBG','Yuran PIBG'], STATUS_PIBG:['STATUS_PIBG','Status PIBG'],
-YURAN_BUKU:['YURAN_BUKU','Yuran Buku'], STATUS_BUKU:['STATUS_BUKU','Status Buku'],
+// Pekerja
+PK_NAMA:['PK_NAMA','Nama Pekerja'],
+PK_PERANAN:['PK_PERANAN','Peranan'],
+PK_SYIF:['PK_SYIF','Syif'],
+PK_CATATAN:['PK_CATATAN','Catatan'],
+
+// Penghubung
+HUB_AGENSI:['HUB_AGENSI','Agensi'],
+HUB_NAMA:['HUB_NAMA','Nama Pegawai'],
+HUB_TEL:['HUB_TEL','Telefon'],
+HUB_CATATAN:['HUB_CATATAN','Catatan'],
+
+// Yuran
+YURAN_PIBG:['YURAN_PIBG','Yuran PIBG'],
+STATUS_PIBG:['STATUS_PIBG','Status PIBG'],
+YURAN_BUKU:['YURAN_BUKU','Yuran Buku'],
+STATUS_BUKU:['STATUS_BUKU','Status Buku'],
 
 // Guru Kelas
-GURU_KELAS:['GURU_KELAS','WALI_KELAS','Wali Kelas']
+GURU_KELAS:['GURU_KELAS','WALI_KELAS','Guru Kelas']
 };
-const SUBJECT_KEYS = ['BM','BI','MAT','SAINS','SEJ','AGAMA','RBT','PJK','PSV','MUZIK','BC','BT'];
 
-function canonKey(h,map){ if(!h) return null; let k=String(h).replace(/^\uFEFF/,'').trim();
-const direct=map[k.toLowerCase()]; if(direct) return direct;
-const simp=k.replace(/[()]/g,'').replace(/\s+\/\s+/g,'/').trim().toLowerCase();
-return map[simp]||null;
-}
-function canonicalize(records, header){
-const mapKey={}; Object.entries(ALIAS).forEach(([std,arr])=>{arr.forEach(a=>mapKey[a.toLowerCase()]=std); mapKey[std.toLowerCase()]=std;});
-suggestAliases(header, mapKey);
-const toPct=v=>{ if(v==null) return ''; const s=String(v).replace('%','').replace(',','.'); const n=parseFloat(s); return Number.isFinite(n)?n:'' };
-const toSex=v=>{ const s=(v||'').toString().toUpperCase().trim(); if(['L','LELAKI','M'].includes(s)) return 'L'; if(['P','PEREMPUAN','F'].includes(s)) return 'P'; return v||''; };
-return records.map(row=>{ const o={}; Object.keys(row).forEach(k=>{
-const std=canonKey(k,mapKey); if(!std) return; let val=row[k];
-if(['KEHADIR',...SUBJECT_KEYS,'MARKAH'].includes(std)) val=toPct(val);
-if(std==='JANTINA') val=toSex(val);
-o[std]=(val==null?'':val);
-}); return o; });
-}
-function suggestAliases(header, map){
-if(!header||!header.length) return;
-const unknown = header.map(h=>String(h).trim()).filter(h=>h && !map[h.toLowerCase()] && !map[h.replace(/[()]/g,'').replace(/\s+\/\s+/g,'/').trim().toLowerCase()]);
-if(!unknown.length) return;
-console.group('%cALIAS CADANGAN','color:#2563eb;font-weight:700');
-console.log('Header CSV belum dipetakan:', unknown);
-console.groupEnd();
-}
-
-/* ====== STATE & IMPORT ====== */
-let DB=[]; let Filt={tahun:'',kelas:''};
-function toast(msg){ const el=document.createElement('div'); el.textContent=msg; el.style.cssText='position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--card);color:var(--text);border:1px solid var(--line);padding:10px 14px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,.15);z-index:9999'; document.body.appendChild(el); setTimeout(()=>el.remove(),2200); }
-
-$('fileInput').addEventListener('change', async e=>{
-const files=[...e.target.files||[]]; if(!files.length) return;
-let add=0;
-for(const f of files){
-try{ const txt=await f.text(); const {header,data}=parseCSV(txt); const canon=canonicalize(data,header); DB=DB.concat(canon); add+=canon.length; }
-catch(err){ console.warn('Fail gagal:', f.name, err); }
-}
-localStorage.setItem(SKEY, JSON.stringify(DB));
-hydrateFilters(); renderAll();
-toast('Import siap • rekod baharu: '+add);
-e.target.value='';
+const keyMap={};
+Object.entries(ALIAS).forEach(([std,arr])=>{
+arr.forEach(a=>keyMap[a.toLowerCase()]=std);
+keyMap[std.toLowerCase()]=std;
 });
-$('btnURL').onclick=async()=>{
-const u=$('urlInput').value.trim(); if(!u) return alert('Masukkan URL CSV dahulu.');
-try{ const res=await fetch(u,{cache:'no-store'}); if(!res.ok) throw new Error('HTTP '+res.status); const txt=await res.text();
-const {header,data}=parseCSV(txt); const canon=canonicalize(data,header); DB=DB.concat(canon);
-localStorage.setItem(SKEY, JSON.stringify(DB));
-hydrateFilters(); renderAll(); toast('Import URL berjaya: '+canon.length+' rekod');
-}catch(err){ alert('Gagal muat URL CSV. Guna Google Sheets (Publish to CSV) / GitHub raw.'); }
-};
-$('btnSave').onclick=()=>{ localStorage.setItem(SKEY, JSON.stringify(DB)); toast('Cache disimpan.'); };
-$('btnClear').onclick=()=>{ if(confirm('Buang semua data cache?')){ localStorage.removeItem(SKEY); DB=[]; hydrateFilters(); renderAll(); } };
 
-(function boot(){ try{ const raw=localStorage.getItem(SKEY); if(raw) DB=JSON.parse(raw||'[]'); }catch(e){} hydrateFilters(); renderAll(); })();
+const toSex=v=>{const s=(v||'').toString().toUpperCase(); if(['L','LELAKI','M'].includes(s))return'L'; if(['P','PEREMPUAN','F'].includes(s))return'P'; return v||''};
 
-/* ====== PENAPIS GLOBAL ====== */
-function uniq(a){return [...new Set(a.filter(Boolean))].sort();}
-function hydrateFilters(){
-const years=uniq(DB.map(r=>r.TAHUN||r.tahun||r.Tahun||'')); const kelas=uniq(DB.map(r=>r.KELAS||r.kelas||r.Kelas||''));
-$('tahunSel').innerHTML=`<option value="">— Semua Tahun —</option>`+years.map(v=>`<option>${v}</option>`).join('');
-$('kelasSel').innerHTML=`<option value="">— Semua Kelas —</option>`+kelas.map(v=>`<option>${v}</option>`).join('');
-$('tahunSel').onchange=$('kelasSel').onchange=()=>{ Filt.tahun=$('tahunSel').value; Filt.kelas=$('kelasSel').value; renderAll(); };
+return records.map(r=>{
+const o={};
+Object.keys(r).forEach(k=>{
+const std = (()=>{
+const raw=String(k).replace(/^\uFEFF/,'').trim();
+if(keyMap[raw.toLowerCase()]) return keyMap[raw.toLowerCase()];
+const simp=raw.replace(/[()]/g,'').replace(/\s+\/\s+/g,'/').toLowerCase();
+return keyMap[simp]||null;
+})();
+if(!std) return;
+let v=r[k];
+if(['BM','BI','MAT','SAINS','SEJ','AGAMA','MARKAH'].includes(std)) v=pct(v);
+if(std==='JANTINA') v=toSex(v);
+o[std]=v;
+});
+return o;
+});
 }
+
+/* ====== Data State & Filter ====== */
+let DB=[]; // semua rekod gabungan
+let Filt={tahun:'',kelas:''};
+
 function applyFilter(rows){
 return rows.filter(r=>{
-const th=(r.TAHUN||r.tahun||r.Tahun||'').toString();
-const kl=(r.KELAS||r.kelas||r.Kelas||'').toString();
-return (!Filt.tahun||th===Filt.tahun)&&(!Filt.kelas||kl===Filt.kelas);
+const th=(r.TAHUN||'').toString();
+const kl=(r.KELAS||'').toString();
+return (!Filt.tahun||th===Filt.tahun) && (!Filt.kelas||kl===Filt.kelas);
 });
 }
 
-/* ====== HELPERS ====== */
-function fillTable(id, rows){ const tb=$(id).querySelector('tbody'); tb.innerHTML=''; rows.forEach(r=>{const tr=document.createElement('tr'); r.forEach(c=>{const td=document.createElement('td'); td.textContent=(c==null?'':c); tr.appendChild(td);}); tb.appendChild(tr);}); }
-function exportTable(id){ const tbl=$(id); const rows=[...tbl.querySelectorAll('tr')].map(tr=>[...tr.children].map(td=>('"'+(td.textContent||'').replace(/"/g,'""')+'"')).join(',')); const blob=new Blob([rows.join('\n')],{type:'text/csv;charset=utf-8;'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=id+'.csv'; a.click(); }
-function printTable(id,title='Cetak'){const w=window.open('','_blank'); const css='body{font:14px/1.5 system-ui;margin:20px} h2{margin:0 0 8px} table{width:100%;border-collapse:collapse} th,td{border:1px solid #ccc;padding:6px 8px} th{background:#f3f4f6}'; w.document.write(`<html><head><title>${title}</title><style>${css}</style></head><body><h2>${title}</h2>${document.getElementById(id).outerHTML}</body></html>`); w.document.close(); w.print();}
-function groupBy(arr,fn){ const m={}; arr.forEach(x=>{const k=fn(x); (m[k]=m[k]||[]).push(x)}); return m; }
-function distinct(a){return [...new Set(a.filter(Boolean))]}
-function avg(a){const n=a.filter(x=>!isNaN(x)&&x!==''); return n.length? n.reduce((p,c)=>p+ +c,0)/n.length:0}
-function grade(m){ const n=parseFloat(m); if(isNaN(n)) return ''; if(n>=85) return 'A'; if(n>=70) return 'B'; if(n>=55) return 'C'; if(n>=40) return 'D'; return 'E'; }
-function pct(v){ if(typeof v==='number') return v; const s=(v||'').toString().replace('%','').trim(); const n=parseFloat(s); return isNaN(n)?0:n; }
+/* ====== Import/Cache ====== */
+$('fileInput').addEventListener('change', async e=>{
+const files=[...e.target.files||[]]; if(!files.length) return;
+let merged=[];
+for(const f of files){
+const txt=await f.text();
+const {header,data}=parseCSV(txt);
+merged=merged.concat(canonicalize(data,header));
+}
+DB = merged;
+localStorage.setItem(SKEY, JSON.stringify(DB));
+hydrateFilters(); renderAll();
+toast('Import multi-CSV berjaya ('+files.length+' fail).');
+e.target.value='';
+});
+
+$('btnURL').onclick=async()=>{
+const u=$('urlInput').value.trim(); if(!u) return alert('Masukkan URL CSV dahulu.');
+try{const res=await fetch(u,{cache:'no-store'}); if(!res.ok) throw new Error(res.status); const txt=await res.text();
+const {header,data}=parseCSV(txt); DB=canonicalize(data,header);
+localStorage.setItem(SKEY, JSON.stringify(DB));
+hydrateFilters(); renderAll(); toast('Import URL berjaya.');
+}catch(e){ alert('Gagal muat URL: '+e.message); }
+};
+$('btnSave').onclick=()=>{ if(DB.length){localStorage.setItem(SKEY,JSON.stringify(DB));toast('Cache disimpan.')} }
+$('btnClear').onclick=()=>{ localStorage.removeItem(SKEY); DB=[]; hydrateFilters(); renderAll(); toast('Cache dibuang.') }
+
+;(function boot(){
+try{ DB=JSON.parse(localStorage.getItem(SKEY)||'[]'); }catch(e){ DB=[] }
+hydrateFilters(); renderAll();
+})();
+
+function hydrateFilters(){
+const years=uniq(DB.map(r=>r.TAHUN||'')), kelas=uniq(DB.map(r=>r.KELAS||''));
+$('tahunSel').innerHTML=`<option value="">— Semua Tahun —</option>`+years.map(v=>`<option>${v}</option>`).join('');
+$('kelasSel').innerHTML=`<option value="">— Semua Kelas —</option>`+kelas.map(v=>`<option>${v}</option>`).join('');
+$('tahunSel').onchange=$('kelasSel').onchange=()=>{Filt.tahun=$('tahunSel').value;Filt.kelas=$('kelasSel').value;renderAll();}
+}
+
+/* ====== Charts (Canvas) ====== */
 function drawBar(canvasId, labels, values){
-const c=$(canvasId); const ctx=c.getContext('2d'); const W=c.width=c.clientWidth; const H=c.height=c.clientHeight;
+const c=$(canvasId); if(!c) return; const ctx=c.getContext('2d');
+const W=c.width=c.clientWidth, H=c.height=c.clientHeight, pad=28;
 ctx.clearRect(0,0,W,H); ctx.fillStyle=getComputedStyle(document.body).getPropertyValue('--card'); ctx.fillRect(0,0,W,H);
-const pad=28, n=values.length||1, gap=8, max=Math.max(10,...values), bw=(W-2*pad-(n-1)*gap)/n;
 ctx.strokeStyle=getComputedStyle(document.body).getPropertyValue('--line'); ctx.beginPath(); ctx.moveTo(pad,pad); ctx.lineTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke();
-const col=getComputedStyle(document.body).getPropertyValue('--accent'); ctx.fillStyle=col;
-values.forEach((v,i)=>{ const h=(H-2*pad)*(v/Math.max(max,1)); const x=pad+i*(bw+gap), y=H-pad-h; ctx.fillRect(x,y,bw,h); });
-ctx.fillStyle=getComputedStyle(document.body).getPropertyValue('--muted'); ctx.font="11px system-ui"; labels.forEach((t,i)=>{ const x=pad+i*(bw+gap)+bw/2; ctx.textAlign="center"; ctx.fillText((t||'').toString().slice(0,9), x, H-8); });
+const max=Math.max(10,...values); const gap=8; const n=values.length||1; const bw=(W-2*pad-(n-1)*gap)/n; const col=getComputedStyle(document.body).getPropertyValue('--accent');
+ctx.fillStyle=col; values.forEach((v,i)=>{const h=(H-2*pad)*(v/Math.max(max,1)); const x=pad+i*(bw+gap), y=H-pad-h; ctx.fillRect(x,y,bw,h);});
+ctx.fillStyle=getComputedStyle(document.body).getPropertyValue('--muted'); ctx.font="11px system-ui";
+labels.forEach((t,i)=>{const x=pad+i*(bw+gap)+bw/2; ctx.textAlign="center"; ctx.fillText((t||'').toString().slice(0,10), x, H-8);});
 }
 
-/* ====== TAB NAV ====== */
-document.getElementById('tabs').addEventListener('click',(e)=>{
-const b=e.target.closest('.tab-btn'); if(!b) return;
-[...document.querySelectorAll('.tab-btn')].forEach(x=>x.classList.remove('active'));
-b.classList.add('active');
-const name=b.dataset.tab;
-[...document.querySelectorAll('.view')].forEach(v=>v.classList.remove('active'));
-document.getElementById('view-'+name).classList.add('active');
-});
-
-/* ====== RENDER: DASHBOARD ====== */
+/* ====== RENDER Dashboard ====== */
 function renderDash(){
-const rows=applyFilter(DB), sex=x=>(x||'').toString().toUpperCase().trim();
+const rows=applyFilter(DB), sex=x=>(x||'').toString().toUpperCase();
 const L=rows.filter(r=>sex(r.JANTINA)==='L').length;
 const P=rows.filter(r=>sex(r.JANTINA)==='P').length;
-const had=avg(rows.map(r=>pct(r.KEHADIR)));
-$('kpiTotal').textContent=rows.length; $('kpiL').textContent=L; $('kpiP').textContent=P; $('kpiHadir').textContent=(had||0).toFixed(0)+'%';
-
+const had=Math.round((rows.reduce((s,r)=>s+pct(r.KEHADIR||0),0)/(rows.length||1)));
+$('kpiTotal').textContent=rows.length; $('kpiL').textContent=L; $('kpiP').textContent=P; $('kpiHadir').textContent=had+'%';
 const grp=groupBy(rows, r=>r.KELAS||'-');
-const list=Object.entries(grp).map(([k,a])=>{
-const l=a.filter(r=>sex(r.JANTINA)==='L').length, p=a.filter(r=>sex(r.JANTINA)==='P').length;
-const gk = mostCommon(a.map(r=> r.GURU_KELAS || '' ));
-return {kelas:k,L:l,P:p,J:l+p,GK:gk||'-'};
-}).sort((a,b)=>a.kelas.localeCompare(b.kelas));
+const list=Object.entries(grp).map(([k,a])=>({kelas:k,L:a.filter(r=>sex(r.JANTINA)==='L').length,P:a.filter(r=>sex(r.JANTINA)==='P').length,J:a.length,GK:mostCommon(a.map(r=>r.GURU_KELAS||''))||'-'})).sort((a,b)=>a.kelas.localeCompare(b.kelas));
 fillTable('tblKelas', list.map((r,i)=>[i+1,r.kelas,r.L,r.P,r.J,r.GK]));
 drawBar('clsChart', list.map(x=>x.kelas), list.map(x=>x.J));
-
-function mostCommon(arr){const c={}; arr.filter(Boolean).forEach(x=>c[x]=(c[x]||0)+1); let best='', s=0; for(const [k,v] of Object.entries(c)){if(v>s){s=v;best=k}} return best;}
 }
 
-/* ====== RENDER: PENTADBIRAN ====== */
+/* ====== RENDER Pentadbiran ====== */
 function renderAdmin(){
-const rows=DB; // Pentadbiran guna semua (tidak tapis tahun/kelas)
-const staf = rows.filter(r=> (r.ROLE||'').toLowerCase().includes('guru') || (r.JAWATAN||'').toLowerCase().includes('guru') || (r.NAMA_GURU||''));
-const akp = rows.filter(r=> (r.ROLE||'').toLowerCase().includes('akp') || (r.JAWATAN||'').toLowerCase().includes('pembantu') );
-const keb = rows.filter(r=> (r.ROLE||'').toLowerCase().includes('kebersihan') );
-const guard= rows.filter(r=> (r.ROLE||'').toLowerCase().includes('pengawal') || (r.ROLE||'').toLowerCase().includes('security') );
-$('kpiGuru').textContent=staf.length; $('kpiAKP').textContent=akp.length; $('kpiKeb').textContent=keb.length; $('kpiGuard').textContent=guard.length;
+const rows=DB; // tidak tapis Tahun/Kelas utk staf/admin
+const staf = rows.filter(r=>(r.ROLE||r.JAWATAN));
+const guru = staf.filter(r=>(r.ROLE||'').toLowerCase().includes('guru') || (r.JAWATAN||'').toLowerCase().includes('guru'));
+const akp = staf.filter(r=>(r.ROLE||'').toLowerCase().includes('akp') || (r.JAWATAN||'').toLowerCase().includes('akp'));
+$('kpiGuru').textContent=guru.length; $('kpiAKP').textContent=akp.length;
+fillTable('tblStaf', staf.map(r=>[r.NAMA||r.NAMA_GURU||'-', r.JAWATAN||r.ROLE||'-', r.OPSYEN||'-', r.TELEFON||'-', r.EMEL||'-']));
 
-fillTable('tblStaf', staf.map(r=>[
-r.NAMA||r.NAMA_GURU||'-', r.JAWATAN||'-', r.OPSYEN||r.SUBJEK_STAF||'-', r.TELEFON||'-', r.EMEL||'-'
-]));
+const jad = rows.filter(r=>r.JAD_GURU||r.JAD_KELAS||r.JAD_MASA||r.JAD_SUBJEK||r.JAD_HARI);
+const applyJadFilter=()=>{
+const q=($('jadCari').value||'').toLowerCase();
+const day=$('jadHari').value||'';
+const out=jad.filter(r=>{
+if(day && (r.JAD_HARI||'')!==day) return false;
+const hay=[r.JAD_HARI,r.JAD_MASA,r.JAD_GURU,r.JAD_KELAS,r.JAD_SUBJEK].join(' ').toLowerCase();
+return !q || hay.includes(q);
+}).map(r=>[r.JAD_HARI||'-', r.JAD_MASA||'-', r.JAD_GURU||'-', r.JAD_KELAS||'-', r.JAD_SUBJEK||'-']);
+fillTable('tblJadual', out);
+};
+$('jadCari').oninput=$('jadHari').onchange=applyJadFilter; applyJadFilter();
 
-// Keberadaan guru (harian)
-const hadir = rows.filter(r=> r.HAD_TARIKH||r.HAD_NAMA||r.HAD_STATUS);
-fillTable('tblHadirGuru', hadir.map(r=>[
-r.HAD_TARIKH||'-', r.HAD_NAMA||'-', r.HAD_STATUS||'-', ((r.HAD_MASA_MULA||'')+' - '+(r.HAD_MASA_TAMAT||''))||'-', r.HAD_CATATAN||'-'
-]));
+const keb = rows.filter(r=>r.KEB_TARIKH||r.KEB_GURU||r.KEB_STATUS||r.KEB_CATATAN);
+fillTable('tblKehadiranGuru', keb.map(r=>[r.KEB_TARIKH||'-', r.KEB_GURU||'-', r.KEB_STATUS||'-', r.KEB_CATATAN||'-']));
 
-// Jadual waktu + penapis
-const jad = rows.filter(r=> r.JAD_GURU||r.JAD_KELAS||r.JAD_MASA||r.JAD_SUBJEK );
-let jadView=[...jad];
-function applyJadFilter(){
-const g=$('jadCariGuru').value.toLowerCase(), k=$('jadCariKelas').value.toLowerCase(),
-m=$('jadCariMasa').value.toLowerCase(), s=$('jadCariSubjek').value.toLowerCase();
-jadView = jad.filter(r=>{
-const a=(r.JAD_GURU||'').toLowerCase().includes(g);
-const b=(r.JAD_KELAS||'').toLowerCase().includes(k);
-const c=(r.JAD_MASA||'').toLowerCase().includes(m);
-const d=(r.JAD_SUBJEK||'').toLowerCase().includes(s);
-return a&&b&&c&&d;
-});
-fillTable('tblJadual', jadView.map(r=>[r.JAD_GURU||'-', r.JAD_KELAS||'-', r.JAD_MASA||'-', r.JAD_SUBJEK||'-']));
-}
-['jadCariGuru','jadCariKelas','jadCariMasa','jadCariSubjek'].forEach(id=>$(id).oninput=applyJadFilter);
-$('jadClear').onclick=()=>{ ['jadCariGuru','jadCariKelas','jadCariMasa','jadCariSubjek'].forEach(id=>$(id).value=''); applyJadFilter(); };
-applyJadFilter();
-
-// Log / Pekerja / Penghubung
 const logs = rows.filter(r=>r.LOG_TARIKH||r.LOG_PROGRAM||r.LOG_UNIT||r.LOG_STATUS);
 fillTable('tblLog', logs.map(r=>[r.LOG_TARIKH||'-', r.LOG_PROGRAM||'-', r.LOG_UNIT||'-', r.LOG_STATUS||'-']));
-const pekerja = rows.filter(r=> (r.ROLE||'').toLowerCase().includes('kebersihan') || (r.ROLE||'').toLowerCase().includes('pengawal') || r.PERANAN );
-fillTable('tblPekerja', pekerja.map(r=>[r.NAMA||'-', r.ROLE||r.PERANAN||'-', r.SYIF||'-', r.CATATAN||'-']));
-const hub = rows.filter(r=> (r.AGENSI||'').length || (r.PENGHUBUNG||'').length );
-fillTable('tblHubung', hub.map(r=>[r.AGENSI||'-', r.PENGHUBUNG||r.NAMA||'-', r.TELEFON||'-', r.CATATAN||'-']));
+
+const pk = rows.filter(r=>r.PK_NAMA||r.PK_PERANAN);
+const kebersih=pk.filter(r=>(r.PK_PERANAN||'').toLowerCase().includes('kebersih'));
+const guard=pk.filter(r=>(r.PK_PERANAN||'').toLowerCase().includes('pengawal')|| (r.PK_PERANAN||'').toLowerCase().includes('guard'));
+$('kpiKeb').textContent=kebersih.length; $('kpiGuard').textContent=guard.length;
+fillTable('tblPekerja', pk.map(r=>[r.PK_NAMA||'-', r.PK_PERANAN||'-', r.PK_SYIF||'-', r.PK_CATATAN||'-']));
+
+const hub = rows.filter(r=>r.HUB_AGENSI||r.HUB_NAMA);
+fillTable('tblHubung', hub.map(r=>[r.HUB_AGENSI||'-', r.HUB_NAMA||'-', r.HUB_TEL||'-', r.HUB_CATATAN||'-']));
 }
 
-/* ====== RENDER: AKADEMIK ====== */
+/* ====== RENDER Akademik ====== */
 function renderAkad(){
 const rows=applyFilter(DB);
-// himpun subjek yang wujud dari SUBJECT_KEYS
-const availSubs = distinct(rows.flatMap(r=> SUBJECT_KEYS.filter(k => r[k] != null && String(r[k]).trim() !== '')));
-$('subSel').innerHTML = `<option value="">— Semua Subjek —</option>` + availSubs.map(s=>`<option>${s}</option>`).join('');
+// Bina senarai subjek dari data sebenar
+const foundSubs = uniq(rows.flatMap(r=>{
+const keys=[]; SUBJECT_KEYS.forEach(k=>{ if(r[k]!=null && String(r[k]).trim()!=='') keys.push(k) });
+if((r.SUBJEK||'').trim()) keys.push(r.SUBJEK.trim());
+return keys;
+}));
+$('subSel').innerHTML='<option value="">— Semua Subjek —</option>'+foundSubs.map(s=>`<option>${s}</option>`).join('');
 
-// bina senarai rekod akademik long-form (jika SUBJEK/MARKAH tersedia), dan juga wide-form (SUBJECT_KEYS)
-let akad=[];
-rows.forEach(r=>{
-const found = SUBJECT_KEYS.filter(k => r[k] != null && String(r[k]).trim()!=='');
-if(found.length){
-found.forEach(k=> akad.push({nama:r.NAMA||'-', kelas:r.KELAS||'-', subjek:k, markah:r[k], gred:grade(r[k])}));
-}
-if(r.SUBJEK || r.MARKAH){
-akad.push({nama:r.NAMA||'-', kelas:r.KELAS||'-', subjek:r.SUBJEK||'-', markah:r.MARKAH||'', gred:r.GRED||grade(r.MARKAH)});
-}
+const asLong = rows.filter(r=>r.SUBJEK||r.MARKAH||r.GRED).map(r=>({nama:r.NAMA||'-',kelas:r.KELAS||'-',subjek:r.SUBJEK||'-',markah:r.MARKAH||'',gred:r.GRED||grade(r.MARKAH)}));
+const asWide = rows.flatMap(r=>{
+return SUBJECT_KEYS.filter(k=>r[k]!=null && String(r[k]).trim()!=='').map(k=>({nama:r.NAMA||'-',kelas:r.KELAS||'-',subjek:k,markah:r[k],gred:grade(r[k])}));
 });
+let AKAD = asLong.length? asLong.concat(asWide) : asWide;
 
-// penapis subjek
-function applyAkad(){
-const s=$('subSel').value;
-const q=($('akdCari').value||'').toLowerCase();
-let view=[...akad];
-if(s) view=view.filter(x=>x.subjek===s);
-if(q) view=view.filter(x=>x.nama.toLowerCase().includes(q));
-fillTable('tblAkad', view.map(r=>[r.nama,r.kelas,r.subjek,r.markah,r.gred]));
-// KPI ringkas
-const bySub=groupBy(view.filter(x=>x.subjek), r=>r.subjek);
-const subs=Object.keys(bySub); const passPct=subs.map(k=>{const a=bySub[k]; return Math.round((a.filter(x=>(+x.markah)>=40).length/(a.length||1))*100);});
+const doRender=()=>{
+const sub=$('subSel').value||'';
+const list = AKAD.filter(x=>!sub || x.subjek===sub);
+fillTable('tblAkad', list.map(r=>[r.nama,r.kelas,r.subjek,r.markah,r.gred]));
+// KPI
+const bySub=groupBy(list, x=>x.subjek||'-'), subs=Object.keys(bySub);
+const passPct=subs.map(s=>{const a=bySub[s];return Math.round((a.filter(x=>parseFloat(x.markah)>=40).length/(a.length||1))*100)});
 drawBar('akadChart', subs, passPct);
-$('kpiLulus').textContent = Math.round(passPct.reduce((p,c)=>p+c,0)/(passPct.length||1)||0)+'%';
-let best=0; for(let i=1;i<subs.length;i++) if((passPct[i]||0)>(passPct[best]||0)) best=i;
-$('kpiTopSub').textContent=subs[best]||'-';
-$('kpiCemerlang').textContent=view.filter(r=>r.gred==='A').length;
-}
-$('subSel').onchange=$('akdCari').oninput=applyAkad;
-$('akdBtnCari').onclick=applyAkad;
+$('kpiLulus').textContent = Math.round((passPct.reduce((a,b)=>a+b,0)/(passPct.length||1))||0)+'%';
+let maxI=0; for(let i=1;i<subs.length;i++) if(passPct[i]>passPct[maxI]) maxI=i;
+$('kpiTopSub').textContent=subs[maxI]||'-';
+$('kpiCemerlang').textContent=list.filter(r=>(r.gred||'')==='A').length;
+};
+$('subSel').onchange=doRender; doRender();
+
+// Carian & Slip
+$('akdBtnCari').onclick=()=>{
+const q=($('akdCari').value||'').trim().toLowerCase();
+const rec=rows.find(r=>(r.NAMA||'').toLowerCase().includes(q));
+if(!rec){ $('akdSlip').textContent='❌ Tiada padanan nama murid.'; return }
+const lines=[`Slip Keputusan — ${rec.NAMA} (${rec.KELAS||'-'})`];
+// kumpul subjek sebenar murid ini
+const subs=SUBJECT_KEYS.filter(k=>rec[k]!=null && String(rec[k]).trim()!=='');
+if(!subs.length && (rec.SUBJEK||rec.MARKAH)){ lines.push(`${rec.SUBJEK||'-'}: ${rec.MARKAH||'-'} (${grade(rec.MARKAH)})`); }
+else subs.forEach(k=>lines.push(`${k}: ${rec[k]} (${grade(rec[k])})`));
+$('akdSlip').textContent=lines.join('\n');
+};
 $('akdBtnTop').onclick=()=>{
-const s=$('subSel').value;
-let view=[...akad]; if(s) view=view.filter(x=>x.subjek===s);
-view.sort((a,b)=>(+b.markah||0)-(+a.markah||0));
-fillTable('tblAkad', view.slice(0,10).map(r=>[r.nama,r.kelas,r.subjek,r.markah,r.gred]));
+const sub=$('subSel').value||''; let list=AKAD.filter(x=>!sub||x.subjek===sub);
+list=list.sort((a,b)=>(parseFloat(b.markah)||0)-(parseFloat(a.markah)||0)).slice(0,10);
+$('akdSlip').textContent = 'Top 10'+(sub?` — ${sub}`:'')+'\n'+list.map((r,i)=>`${i+1}. ${r.nama} [${r.kelas}] — ${r.markah} (${r.gred})`).join('\n');
 };
-$('akdCetak').onclick=()=>{
-const name = ($('akdCari').value||'').trim();
-if(!name){ alert('Taip nama murid dahulu, kemudian tekan Cetak.'); return; }
-const recs = akad.filter(r=> r.nama.toLowerCase().includes(name.toLowerCase()));
-if(!recs.length){ alert('Nama tidak ditemui.'); return; }
-// bina slip
-const byN = groupBy(recs, r=>r.nama+'||'+r.kelas);
-const blocks = Object.entries(byN).map(([key,a])=>{
-const [n,k]=key.split('||'); const rows = distinct(a.map(x=>x.subjek)).map(s=>{
-const r = a.find(x=>x.subjek===s)||{}; return `<tr><td>${s}</td><td>${r.markah??'-'}</td><td>${r.gred??grade(r.markah)}</td></tr>`;
-}).join('');
-return `<div class="card"><b>${n}</b> — ${k}<div class="tbl-wrap"><table><thead><tr><th>Subjek</th><th>Markah</th><th>Gred</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
-}).join('');
-$('akdSlip').innerHTML = blocks || '<div class="sub">Tiada rekod.</div>';
-window.print();
-};
-
-applyAkad();
+$('akdCetak').onclick=()=>printTable('tblAkad','Akademik — Senarai Tapis');
 }
 
-/* ====== RENDER: HEM ====== */
+/* ====== RENDER HEM ====== */
 function renderHEM(){
-const rows=applyFilter(DB), low=v=>(v||'').toString().toLowerCase();
-const rmt=rows.filter(r=>/ya|rmt/.test(low(r.RMT||r.BANTUAN)));
-const bantuan=rows.filter(r=>/kwamp|biasiswa|ya/.test(low(r.BANTUAN)));
-const keluarga = distinct(rows.map(r=>r.NO_KELUARGA).filter(Boolean)).length;
-const ssdmList=rows.filter(r=> +((r.SSDM||'').toString().replace(/[^\d]/g,''))>0 );
-$('kpiRMT').textContent=rmt.length; $('kpiBantuan').textContent=bantuan.length; $('kpiKeluarga').textContent=keluarga||0; $('kpiSSDM').textContent=ssdmList.length;
-fillTable('tblRMT', rmt.map(r=>[r.NAMA||'-', r.KELAS||'-', r.RMT?'RMT':(r.BANTUAN||'-'), 'Aktif']));
+const rows=applyFilter(DB), low=s=>(s||'').toString().toLowerCase();
+const rmt=rows.filter(r=>/ya|rmt/.test(low(r.RMT||'')));
+const bantuan=rows.filter(r=>/kwamp|biasiswa|ya/.test(low(r.BANTUAN||'')));
+const keluarga=uniq(rows.map(r=>r.NO_KELUARGA).filter(Boolean)).length;
+const ssdmRows=rows.filter(r=>parseInt(r.SSDM||0)>0);
+$('kpiRMT').textContent=rmt.length; $('kpiBantuan').textContent=bantuan.length; $('kpiKeluarga').textContent=keluarga||0; $('kpiSSDM').textContent=ssdmRows.length;
+fillTable('tblRMT', rmt.map(r=>[r.NAMA||'-', r.KELAS||'-', 'RMT', 'Aktif']));
 fillTable('tblHadir', rows.map(r=>[r.NAMA||'-', r.KELAS||'-', (pct(r.KEHADIR)||0)+'%']));
-fillTable('tblSSDM', ssdmList.map(r=>[r.NAMA||'-', r.KELAS||'-', r.SSDM||'1', r.CATATAN||'-']));
+fillTable('tblSSDM', ssdmRows.map(r=>[r.NAMA||'-', r.KELAS||'-', r.SSDM||'1']));
 }
 
-/* ====== RENDER: KOKO ====== */
+/* ====== RENDER KOKO ====== */
 function renderKoko(){
-const q = ($('kokoSearch')?.value || '').toLowerCase();
-const rows = applyFilter(DB).filter(r=>{
+const q=($('kokoSearch').value||'').toLowerCase();
+const rows=applyFilter(DB).filter(r=>{
 if(!q) return true;
-const hay = [r.NAMA||'', r.KELAS||'', r.BERUNIFORM||'', r.SUKAN||'', r.KELAB||''].join(' ').toLowerCase();
-return hay.includes(q);
+return [r.NAMA,r.KELAS,r.BERUNIFORM,r.SUKAN,r.KELAB].join(' ').toLowerCase().includes(q);
 });
-const bu=distinct(rows.map(r=>r.BERUNIFORM||'').filter(Boolean)).length;
-const sk=distinct(rows.map(r=>r.SUKAN||'').filter(Boolean)).length;
-const kb=distinct(rows.map(r=>r.KELAB||'').filter(Boolean)).length;
+const bu=uniq(rows.map(r=>r.BERUNIFORM||'').filter(Boolean)).length;
+const sk=uniq(rows.map(r=>r.SUKAN||'').filter(Boolean)).length;
+const kb=uniq(rows.map(r=>r.KELAB||'').filter(Boolean)).length;
 $('kpiUniBU').textContent=bu; $('kpiUniSukan').textContent=sk; $('kpiUniKelab').textContent=kb;
-
-const cnt={}; rows.forEach(r=>['BERUNIFORM','SUKAN','KELAB'].forEach(k=>{const v=r[k]; if(v){cnt[v]=(cnt[v]||0)+1;}}));
-const labels=Object.keys(cnt), vals=labels.map(k=>cnt[k]); drawBar('kokoChart', labels, vals);
+const cnt={}; rows.forEach(r=>['BERUNIFORM','SUKAN','KELAB'].forEach(k=>{const v=r[k]; if(v){cnt[v]=(cnt[v]||0)+1}}));
+const labels=Object.keys(cnt), vals=labels.map(k=>cnt[k]);
+drawBar('kokoChart', labels, vals);
 fillTable('tblKoko', rows.map(r=>[r.NAMA||'-', r.KELAS||'-', r.BERUNIFORM||'-', r.SUKAN||'-', r.KELAB||'-']));
 }
 
-/* ====== RENDER: ARKIB ====== */
+/* ====== RENDER Arkib ====== */
 function renderArkib(){
 const rows=applyFilter(DB); const byYr=groupBy(rows, r=>r.TAHUN||'-');
 fillTable('tblArkibMurid', Object.entries(byYr).map(([y,a])=>[y,a.length,'—']));
 fillTable('tblArkibAkt', []); fillTable('tblArkibBantuan', []);
 }
 
-/* ====== RENDER: PENJAGA ====== */
+/* ====== RENDER Penjaga ====== */
 function renderPenjaga(){
 const q=($('penjagaCari').value||'').toLowerCase();
 const rows=applyFilter(DB).filter(r=>(r.NAMA||'').toLowerCase().includes(q));
 const r=rows[0]||{};
-// Info asas
-fillKV('penjaga-basic', [
+fillTable('tblPjInfo', [
 ['Nama',r.NAMA||'-'],['Kelas',r.KELAS||'-'],['Tahun',r.TAHUN||'-'],
-['% Kehadiran',(pct(r.KEHADIR)||0)+'%'],['Bantuan',r.RMT?'RMT':(r.BANTUAN||'-')]
+['% Kehadiran',(pct(r.KEHADIR)||0)+'%'],['Bantuan',r.RMT||r.BANTUAN||'-']
 ]);
-// Akademik dinamik ikut SUBJECT_KEYS
-const foundSubs = SUBJECT_KEYS.filter(k => r[k] != null && String(r[k]).trim() !== '');
-let rowsAkad = [];
-if (foundSubs.length) rowsAkad = foundSubs.map(k => [k, r[k] || '-', grade(r[k])]);
-else if (r.SUBJEK || r.MARKAH) rowsAkad = [[r.SUBJEK || '-', r.MARKAH || '-', grade(r.MARKAH)]];
-fillKV('penjaga-akad', rowsAkad.map(x=>[''+x[0], (x[1]??'-')+' ('+(x[2]??grade(x[1]))+')']));
+// akademik dinamik
+const subs = SUBJECT_KEYS.filter(k=>r[k]!=null && String(r[k]).trim()!=='');
+let rowsAkad=[];
+if(subs.length){ rowsAkad=subs.map(k=>[k, r[k]||'-', grade(r[k])]); }
+else if(r.SUBJEK||r.MARKAH){ rowsAkad=[[r.SUBJEK||'-', r.MARKAH||'-', grade(r.MARKAH)]]; }
+fillTable('tblPjAkad', rowsAkad);
 
-// Koko & SSDM & Yuran
-fillKV('penjaga-koko', [['Beruniform',r.BERUNIFORM||'-'],['Sukan',r.SUKAN||'-'],['Kelab',r.KELAB||'-']]);
-fillKV('penjaga-ssdm', [['Bil. Kes', r.SSDM||'0'],['Catatan',r.CATATAN||'-']]);
-fillKV('penjaga-yuran', [['Yuran PIBG', r.YURAN_PIBG||'-'],['Status PIBG', r.STATUS_PIBG||'-'],['Yuran Buku', r.YURAN_BUKU||'-'],['Status Buku', r.STATUS_BUKU||'-']]);
+fillTable('tblPjKoko', [['Beruniform',r.BERUNIFORM||'-'],['Sukan',r.SUKAN||'-'],['Kelab',r.KELAB||'-']]);
+fillTable('tblPjSSDM', [['Bil. Kes', r.SSDM||'0']]);
+fillTable('tblPjYuran', [['Yuran PIBG', r.YURAN_PIBG||'-', r.STATUS_PIBG||'-'],['Buku', r.YURAN_BUKU||'-', r.STATUS_BUKU||'-']]);
 }
-function fillKV(tbodyId, rows){ const tb=$(tbodyId); tb.innerHTML=''; rows.forEach(r=>{const tr=document.createElement('tr'); tr.innerHTML=`<td>${r[0]}</td><td>${r[1]}</td>`; tb.appendChild(tr); }); }
 $('penjagaCari').oninput=renderPenjaga;
-$('penjagaCetak').onclick=()=>{ const w=window.open('','_blank'); const css='body{font:14px/1.5 system-ui;margin:20px} h2{margin:0 0 8px} table{width:100%;border-collapse:collapse;margin:8px 0 12px} th,td{border:1px solid #ccc;padding:6px 8px} th{background:#f3f4f6}'; const wrap=$('penjagaPrint').outerHTML; w.document.write(`<html><head><title>Cetak — Penjaga</title><style>${css}</style></head><body><h2>Semakan Penjaga</h2>${wrap}</body></html>`); w.document.close(); w.print(); };
+$('penjagaCetak').onclick=()=>{printTable('penjagaPrint','Semakan Penjaga')}
 
-/* ====== MASTER RENDER ====== */
+/* ====== Tabs ====== */
+document.getElementById('tabs').addEventListener('click',e=>{
+const b=e.target.closest('.tab-btn'); if(!b) return; e.preventDefault();
+[...document.querySelectorAll('.tab-btn')].forEach(x=>x.classList.remove('active'));
+b.classList.add('active');
+const name=b.dataset.tab;
+[...document.querySelectorAll('.view')].forEach(v=>v.classList.remove('active'));
+const t=document.getElementById('view-'+name); if(t) t.classList.add('active');
+});
+
+/* ====== Master Render ====== */
 function renderAll(){ renderDash(); renderAdmin(); renderAkad(); renderHEM(); renderKoko(); renderArkib(); renderPenjaga(); }
 </script>
 </body>
